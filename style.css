@@ -1,0 +1,14 @@
+.searchform {
+	margin: 10px 0 0 10px;
+}
+.searchtitle {
+}
+input.searchfield[type=text] {
+	margin-top:10px;
+	height:20px;
+	padding:1px;
+}
+input.searchbutton[type=submit] {
+	padding:2px;
+	margin:0;
+}
