@@ -34,14 +34,15 @@ if(!empty($_POST['searchfield'])) {
 	ob_start();
 
 	# recherche dans les articles
-	$plxGlob_arts = clone $plxMotor->plxGlob_arts;
-	$motif = '/^[0-9]{4}.['.$plxMotor->activeCats.',]*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+	$plxGlob_arts = clone $plxMotor->plxGlob_arts;	
+	$motif = '/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$plxMotor->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 	if($aFiles = $plxGlob_arts->query($motif,'art','rsort',0,false,'before')) {
 		foreach($aFiles as $v) { # On parcourt tous les fichiers
-			$art = $this->plxMotor->parseArticle(PLX_ROOT.$plxMotor->aConf['racine_articles'].$v);
+			$art = $plxMotor->parseArticle(PLX_ROOT.$plxMotor->aConf['racine_articles'].$v);
+			$tags = array_map("trim", explode(',', strtolower($art['tags'])));
 			$searchstring = strtolower(plxUtils::strRevCheck($art['title'].$art['chapo'].$art['content']));
 			$searchstring = plxUtils::unSlash($searchstring);
-			if ($searchword!='' AND strpos($searchstring,$searchword) !== false) {
+			if ($searchword!='' AND strpos($searchstring,$searchword) !== false OR in_array($searchword, $tags)) {
 				$searchresults = true;
 				$art_num = intval($art['numero']);
 				$art_url = $art['url'];

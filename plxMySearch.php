@@ -14,23 +14,23 @@ class plxMySearch extends plxPlugin {
 	 **/
 	public function __construct($default_lang) {
 
-        # appel du constructeur de la classe plxPlugin (obligatoire)
-        parent::__construct($default_lang);
+		# appel du constructeur de la classe plxPlugin (obligatoire)
+		parent::__construct($default_lang);
 
 		# droits pour accèder à la page config.php du plugin
 		$this->setConfigProfil(PROFIL_ADMIN);
 		if($this->getParam('savesearch'))
 			$this->setAdminProfil(PROFIL_ADMIN);
 
-        # déclaration des hooks
+		# déclaration des hooks
 		$this->addHook('plxShowConstruct', 'plxShowConstruct');
-        $this->addHook('plxMotorPreChauffageBegin', 'plxMotorPreChauffageBegin');
-        $this->addHook('plxShowStaticListEnd', 'plxShowStaticListEnd');
+		$this->addHook('plxMotorPreChauffageBegin', 'plxMotorPreChauffageBegin');
+		$this->addHook('plxShowStaticListEnd', 'plxShowStaticListEnd');
 		$this->addHook('plxShowPageTitle', 'plxShowPageTitle');
 		$this->addHook('SitemapStatics', 'SitemapStatics');
 		$this->addHook('ThemeEndHead', 'ThemeEndHead');
 		$this->addHook('MySearchForm', 'form');
-    }
+	}
 
 	/**
 	 * Méthode de traitement du hook plxShowConstruct
@@ -38,7 +38,7 @@ class plxMySearch extends plxPlugin {
 	 * @return	stdio
 	 * @author	Stephane F
 	 **/
-    public function plxShowConstruct() {
+	public function plxShowConstruct() {
 		# infos sur la page statique
 		$string  = "if(\$this->plxMotor->mode=='".$this->getParam('url')."') {";
 		$string .= "	\$array = array();";
@@ -61,7 +61,7 @@ class plxMySearch extends plxPlugin {
 	 * @return	stdio
 	 * @author	Stephane F
 	 **/
-    public function plxMotorPreChauffageBegin() {
+	public function plxMotorPreChauffageBegin() {
 
 		$template = $this->getParam('template')==''?'static.php':$this->getParam('template');
 
@@ -75,7 +75,7 @@ class plxMySearch extends plxPlugin {
 		";
 
 		echo "<?php ".$string." ?>";
-    }
+	}
 
 	/**
 	 * Méthode de traitement du hook plxShowStaticListEnd
@@ -83,14 +83,14 @@ class plxMySearch extends plxPlugin {
 	 * @return	stdio
 	 * @author	Stephane F
 	 **/
-    public function plxShowStaticListEnd() {
+	public function plxShowStaticListEnd() {
 
 		# ajout du menu pour accèder à la page de recherche
 		if($this->getParam('mnuDisplay')) {
 			echo "<?php \$class = \$this->plxMotor->mode=='".$this->getParam('url')."'?'active':'noactive'; ?>";
 			echo "<?php array_splice(\$menus, ".($this->getParam('mnuPos')-1).", 0, '<li><a class=\"static '.\$class.'\" href=\"'.\$this->plxMotor->urlRewrite('?".$this->getParam('url')."').'\">".$this->getParam('mnuName')."</a></li>'); ?>";
 		}
-    }
+	}
 
 	/**
 	 * Méthode qui renseigne le titre de la page dans la balise html <title>
@@ -101,7 +101,7 @@ class plxMySearch extends plxPlugin {
 	public function plxShowPageTitle() {
 		echo '<?php
 			if($this->plxMotor->mode == "'.$this->getParam('url').'") {
-				echo plxUtils::strCheck($this->plxMotor->aConf["title"])." - ".plxUtils::strCheck($this->plxMotor->plxPlugins->aPlugins["plxMySearch"]["instance"]->getLang("L_PAGE_TITLE"));
+				echo plxUtils::strCheck($this->plxMotor->aConf["title"])." - ".plxUtils::strCheck($this->plxMotor->plxPlugins->aPlugins["plxMySearch"]->getLang("L_PAGE_TITLE"));
 				return true;
 			}
 		?>';
