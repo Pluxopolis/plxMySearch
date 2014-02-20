@@ -68,7 +68,8 @@ class plxMySearch extends plxPlugin {
 		$string = "
 		if(\$this->get && preg_match('/^".$this->getParam('url')."\/?/',\$this->get)) {
 			\$this->mode = '".$this->getParam('url')."';
-			\$this->cible = '../../plugins/plxMySearch/form';
+			\$prefix = str_repeat('../', substr_count(trim(PLX_ROOT.\$this->aConf['racine_statiques'], '/'), '/'));
+			\$this->cible = \$prefix.'plugins/plxMySearch/form';
 			\$this->template = '".$template."';
 			return true;
 		}

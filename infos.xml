@@ -2,8 +2,8 @@
 <document>
 	<title><![CDATA[MySearch]]></title>
 	<author><![CDATA[Stephane F.]]></author>
-	<version>1.4</version>
-	<date>06/09/2013</date>
+	<version>1.4.1</version>
+	<date>20/02/2014</date>
 	<site>http://pluxopolis.net</site>
 	<description><![CDATA[Moteur de recherche dans les articles et les pages statiques]]></description>
 	<requirements></requirements>
