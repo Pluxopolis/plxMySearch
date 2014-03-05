@@ -23,14 +23,20 @@ class plxMySearch extends plxPlugin {
 			$this->setAdminProfil(PROFIL_ADMIN);
 
 		# déclaration des hooks
+		$this->addHook('AdminTopEndHead', 'AdminTopEndHead');			
 		$this->addHook('plxShowConstruct', 'plxShowConstruct');
 		$this->addHook('plxMotorPreChauffageBegin', 'plxMotorPreChauffageBegin');
 		$this->addHook('plxShowStaticListEnd', 'plxShowStaticListEnd');
 		$this->addHook('plxShowPageTitle', 'plxShowPageTitle');
 		$this->addHook('SitemapStatics', 'SitemapStatics');
-		$this->addHook('ThemeEndHead', 'ThemeEndHead');
 		$this->addHook('MySearchForm', 'form');
 	}
+	
+	public function AdminTopEndHead() {	
+		if(basename($_SERVER['SCRIPT_NAME'])=='parametres_plugin.php') {
+			echo '<link href="'.PLX_PLUGINS.'plxMySearch/tabs/style.css" rel="stylesheet" type="text/css" />'."\n";
+		}
+	}	
 
 	/**
 	 * Méthode de traitement du hook plxShowConstruct
@@ -43,7 +49,7 @@ class plxMySearch extends plxPlugin {
 		$string  = "if(\$this->plxMotor->mode=='".$this->getParam('url')."') {";
 		$string .= "	\$array = array();";
 		$string .= "	\$array[\$this->plxMotor->cible] = array(
-			'name'		=> '".$this->getParam('mnuName')."',
+			'name'		=> '".$this->getParam('mnuName_'.$this->default_lang)."',
 			'menu'		=> '',
 			'url'		=> 'search',
 			'readable'	=> 1,
@@ -89,7 +95,7 @@ class plxMySearch extends plxPlugin {
 		# ajout du menu pour accèder à la page de recherche
 		if($this->getParam('mnuDisplay')) {
 			echo "<?php \$class = \$this->plxMotor->mode=='".$this->getParam('url')."'?'active':'noactive'; ?>";
-			echo "<?php array_splice(\$menus, ".($this->getParam('mnuPos')-1).", 0, '<li><a class=\"static '.\$class.'\" href=\"'.\$this->plxMotor->urlRewrite('?".$this->getParam('url')."').'\">".$this->getParam('mnuName')."</a></li>'); ?>";
+			echo "<?php array_splice(\$menus, ".($this->getParam('mnuPos')-1).", 0, '<li><a class=\"static '.\$class.'\" href=\"'.\$this->plxMotor->urlRewrite('?".$this->getParam('url')."').'\" title=\"".$this->getParam('mnuName_'.$this->default_lang)."\">".$this->getParam('mnuName_'.$this->default_lang)."</a></li>'); ?>";
 		}
 	}
 
@@ -126,16 +132,6 @@ class plxMySearch extends plxPlugin {
 	}
 
 	/**
-	 * Méthode qui ajoute le fichier css dans le fichier header.php du thème
-	 *
-	 * @return	stdio
-	 * @author	Stephane F
-	 **/
-	public function ThemeEndHead() {
-		echo "\t".'<link rel="stylesheet" type="text/css" href="'.PLX_PLUGINS.'plxMySearch/style.css" media="screen" />'."\n";
-	}
-
-	/**
 	 * Méthode statique qui affiche le formulaire de recherche
 	 *
 	 * @return	stdio
@@ -159,7 +155,7 @@ class plxMySearch extends plxPlugin {
 		<?php endif; ?>
 		<p class="searchfields">
 		<input type="text" class="searchfield" name="searchfield" value="<?php echo $searchword ?>" />
-		<input type="submit" class="searchbutton" name="searchbutton" value="<?php echo $plxPlugin->getParam('frmLibButton') ?>" />
+		<input type="submit" class="searchbutton" name="searchbutton" value="<?php echo $plxPlugin->getParam('frmLibButton_'.$plxPlugin->default_lang) ?>" />
 		</p>
 	</form>
 </div>

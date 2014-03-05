@@ -1,6 +1,10 @@
 <?php if(!defined('PLX_ROOT')) exit; ?>
 <?php
 
+function getParam($p) {
+	return ($p=='' OR $p=='1');
+}
+
 # récuperation d'une instance de plxMotor
 $plxMotor = plxMotor::getInstance();
 $plxPlugin = $plxMotor->plxPlugins->getInstance('plxMySearch');
@@ -32,6 +36,8 @@ if(!empty($_POST['searchfield'])) {
 
 	# démarrage de la bufférisation écran
 	ob_start();
+	
+
 
 	# recherche dans les articles
 	$plxGlob_arts = clone $plxMotor->plxGlob_arts;	
@@ -40,9 +46,13 @@ if(!empty($_POST['searchfield'])) {
 		foreach($aFiles as $v) { # On parcourt tous les fichiers
 			$art = $plxMotor->parseArticle(PLX_ROOT.$plxMotor->aConf['racine_articles'].$v);
 			$tags = array_map("trim", explode(',', strtolower($art['tags'])));
-			$searchstring = strtolower(plxUtils::strRevCheck($art['title'].$art['chapo'].$art['content']));
+			$searchtags = getParam($plxPlugin->getParam('sTags')) ? in_array($searchword, $tags) : false;
+			$searchstring  = getParam($plxPlugin->getParam('sTitle')) ? $art['title'] : '';
+			$searchstring .= getParam($plxPlugin->getParam('sChapo')) ? $art['chapo'] : '';
+			$searchstring .= getParam($plxPlugin->getParam('sContent')) ? $art['content'] : '';
+			$searchstring = strtolower(plxUtils::strRevCheck($searchstring));
 			$searchstring = plxUtils::unSlash($searchstring);
-			if ($searchword!='' AND strpos($searchstring,$searchword) !== false OR in_array($searchword, $tags)) {
+			if ($searchword!='' AND strpos($searchstring,$searchword) !== false OR $searchtags) {
 				$searchresults = true;
 				$art_num = intval($art['numero']);
 				$art_url = $art['url'];
