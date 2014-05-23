@@ -1,4 +1,7 @@
-﻿## Version 1.5 (27/02/2014) ##
+﻿## Version 1.5.1 (23/05/2014) ##
+[+] Ajout d'une liste de critères de recherche pré-renseignés sur forme de case à cocher
+
+## Version 1.5 (27/02/2014) ##
 [+] Gestion du paramètrage multilingue
 [+] Gestion css à partir de la configuration du plugin
 [+] Compatibilité avec le plugin plxMyMultiLingue

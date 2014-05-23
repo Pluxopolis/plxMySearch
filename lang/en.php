@@ -26,12 +26,14 @@ $LANG = array(
 'L_SEARCH_CHAPO'			=> 'Search into article chapos',
 'L_SEARCH_CONTENT'			=> 'Search into article content',
 'L_SEARCH_TAGS'				=> 'Search into article tags',
+'L_CHECKBOXES'				=> 'List of criteria as checkboxes<br />separated by semicolons',
 
 # form.search.php
 'L_FORM_SEARCHFIELD'		=> 'Enter the value to search',
+'L_FORM_SEARCHFIELD_2'		=> 'Select criteria or enter the value to search',
 'L_FORM_BUTTON'				=> 'Ok',
-'L_FORM_RESULTS'			=> 'Search results for',
-'L_FORM_NO_RESULT'			=> 'No result for',
+'L_FORM_RESULTS'			=> 'Search results',
+'L_FORM_NO_RESULT'			=> 'No result',
 'L_FORM_NO_SEARCHWORD'		=> 'No value entered',
 
 );

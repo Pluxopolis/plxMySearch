@@ -23,7 +23,7 @@ class plxMySearch extends plxPlugin {
 			$this->setAdminProfil(PROFIL_ADMIN);
 
 		# déclaration des hooks
-		$this->addHook('AdminTopEndHead', 'AdminTopEndHead');			
+		$this->addHook('AdminTopEndHead', 'AdminTopEndHead');
 		$this->addHook('plxShowConstruct', 'plxShowConstruct');
 		$this->addHook('plxMotorPreChauffageBegin', 'plxMotorPreChauffageBegin');
 		$this->addHook('plxShowStaticListEnd', 'plxShowStaticListEnd');
@@ -31,12 +31,12 @@ class plxMySearch extends plxPlugin {
 		$this->addHook('SitemapStatics', 'SitemapStatics');
 		$this->addHook('MySearchForm', 'form');
 	}
-	
-	public function AdminTopEndHead() {	
+
+	public function AdminTopEndHead() {
 		if(basename($_SERVER['SCRIPT_NAME'])=='parametres_plugin.php') {
 			echo '<link href="'.PLX_PLUGINS.'plxMySearch/tabs/style.css" rel="stylesheet" type="text/css" />'."\n";
 		}
-	}	
+	}
 
 	/**
 	 * Méthode de traitement du hook plxShowConstruct
@@ -151,12 +151,39 @@ class plxMySearch extends plxPlugin {
 <div class="searchform">
 	<form action="<?php echo $plxMotor->urlRewrite('?'.$plxPlugin->getParam('url')) ?>" method="post">
 		<?php if($title) : ?>
-		<p class="searchtitle"><?php $plxPlugin->lang('L_FORM_SEARCHFIELD') ?>&nbsp;:</p>
-		<?php endif; ?>
-		<p class="searchfields">
-		<input type="text" class="searchfield" name="searchfield" value="<?php echo $searchword ?>" />
-		<input type="submit" class="searchbutton" name="searchbutton" value="<?php echo $plxPlugin->getParam('frmLibButton_'.$plxPlugin->default_lang) ?>" />
+		<p class="searchtitle">
+			<?php
+				if($plxPlugin->getParam('checkboxes_'.$plxPlugin->default_lang)=='')
+					$plxPlugin->lang('L_FORM_SEARCHFIELD');
+				else
+					$plxPlugin->lang('L_FORM_SEARCHFIELD_2');
+			?>&nbsp;:
 		</p>
+		<?php endif; ?>
+		<div class="searchfields">
+			<?php
+			if($plxPlugin->getParam('checkboxes_'.$plxPlugin->default_lang)!='') {
+				if($chk = explode(';', $plxPlugin->getParam('checkboxes_'.$plxPlugin->default_lang))) {
+					echo '<ul>';
+					foreach($chk as $k => $v) {
+						$c = plxUtils::title2url(trim($v));
+						$sel = "";
+						if(isset($_POST['searchcheckboxes'])) {
+							foreach($_POST['searchcheckboxes'] as $s) {
+								if($s==$c) {
+									$sel = ' checked="checked"';
+								}
+							}
+						}
+						echo '<li><input'.$sel.' class="searchcheckboxes" type="checkbox" name="searchcheckboxes[]" id="id_searchcheckboxes[]" value="'.$c.'" />&nbsp;'.plxUtils::strCheck($v).'</li>';
+					}
+					echo '</ul>';
+				}
+			}
+			?>
+			<input type="text" class="searchfield" name="searchfield" value="<?php echo $searchword ?>" />
+			<input type="submit" class="searchbutton" name="searchbutton" value="<?php echo $plxPlugin->getParam('frmLibButton') ?>" />
+		</div>
 	</form>
 </div>
 

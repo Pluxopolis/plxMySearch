@@ -12,3 +12,13 @@ input.searchbutton[type=submit] {
 	padding:2px;
 	margin:0;
 }
+.searchform ul {
+	margin: 0;
+}
+
+.searchform ul li {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+

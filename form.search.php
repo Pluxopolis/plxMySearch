@@ -15,44 +15,66 @@ $searchword = '';
 $format_date = '#num_day/#num_month/#num_year(4)';
 $searchresults=false;
 
-if(!empty($_POST['searchfield'])) {
+if(!empty($_POST['searchfield']) OR !empty($_POST['searchcheckboxes'])) {
 
-	$word = plxUtils::strCheck(plxUtils::unSlash($_POST['searchfield']));
+	# formatage des critères de recherches configurés dans l'admin du plugin
+	$array = array();
+	$cfg_params = explode(';', $plxPlugin->getParam('checkboxes_'.$plxPlugin->default_lang));
+	foreach($cfg_params as $v) {
+		$trim = trim($v);
+		if($trim!='') {
+			$array[plxUtils::title2url($trim)] = $trim;
+		}
+	}
 
-	# valeur de recherche
-	$searchword = strtolower(htmlspecialchars(trim($_POST['searchfield'])));
-	$searchword = plxUtils::unSlash($searchword);
+	# valeurs de recherche à partir des cases à cocher
+	$searchwords = array();
+	foreach($_POST['searchcheckboxes'] as $v) {
+		if(isset($array[$v])) {
+			$searchwords[] = strtolower($array[$v]);
+		}
+	}
 
-	if($plxPlugin->getParam('savesearch')) {
+	# valeur de recherche de la zone de saisie libre
+	$searchword = trim($_POST['searchfield']);
+	if($searchword!='') {
+		$searchwords[] = plxUtils::unSlash(htmlspecialchars(strtolower($searchword)));
+	}
+
+	# enregistrement des valeurs recherchées dans un fichier texte
+	if($plxPlugin->getParam('savesearch') and sizeof($searchwords) > 0) {
 		$filename=PLX_ROOT.PLX_CONFIG_PATH.'plugins/plxMySearch.data.php';
 		if($f=fopen($filename,'a+')) {
 			if(filesize($filename)>0)
-				fwrite($f, "\n".$searchword);
+				fwrite($f, "\n".implode(" ", $searchwords));
 			else
-				fwrite($f, $searchword);
+				fwrite($f, implode(" ", $searchwords));
 			fclose($f);
 		}
 	}
 
 	# démarrage de la bufférisation écran
 	ob_start();
-	
-
 
 	# recherche dans les articles
-	$plxGlob_arts = clone $plxMotor->plxGlob_arts;	
+	$plxGlob_arts = clone $plxMotor->plxGlob_arts;
 	$motif = '/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$plxMotor->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 	if($aFiles = $plxGlob_arts->query($motif,'art','rsort',0,false,'before')) {
 		foreach($aFiles as $v) { # On parcourt tous les fichiers
+
 			$art = $plxMotor->parseArticle(PLX_ROOT.$plxMotor->aConf['racine_articles'].$v);
-			$tags = array_map("trim", explode(',', strtolower($art['tags'])));
-			$searchtags = getParam($plxPlugin->getParam('sTags')) ? in_array($searchword, $tags) : false;
-			$searchstring  = getParam($plxPlugin->getParam('sTitle')) ? $art['title'] : '';
-			$searchstring .= getParam($plxPlugin->getParam('sChapo')) ? $art['chapo'] : '';
-			$searchstring .= getParam($plxPlugin->getParam('sContent')) ? $art['content'] : '';
-			$searchstring = strtolower(plxUtils::strRevCheck($searchstring));
+			$tags = implode(" ", array_map("trim", explode(',', strtolower($art['tags']))));
+			$searchstring = strtolower(plxUtils::strRevCheck($art['title'].$art['chapo'].$art['content']).$tags);
 			$searchstring = plxUtils::unSlash($searchstring);
-			if ($searchword!='' AND strpos($searchstring,$searchword) !== false OR $searchtags) {
+
+			$searchok = false;
+			foreach($searchwords as $word) {
+				if (strpos($searchstring,$word) !== false) {
+					$searchok =true;
+				}
+			}
+
+			if($searchok) {
 				$searchresults = true;
 				$art_num = intval($art['numero']);
 				$art_url = $art['url'];
@@ -66,12 +88,21 @@ if(!empty($_POST['searchfield'])) {
 	# recherche dans les pages statiques
 	if($plxMotor->aStats) {
 		foreach($plxMotor->aStats as $k=>$v) {
+
 			if($v['active']==1 AND $v['url']!=$plxMotor->mode) { # si la page est bien active
 				$filename=PLX_ROOT.$plxMotor->aConf['racine_statiques'].$k.'.'.$v['url'].'.php';
 				if(file_exists($filename)) {
 					$searchstring  = strtolower(plxUtils::strRevCheck(file_get_contents($filename)));
 					$searchstring = plxUtils::unSlash($searchstring);
-					if(strpos($searchstring,$searchword) !== false) {
+
+					$searchok = false;
+					foreach($searchwords as $word) {
+						if (strpos($searchstring,$word) !== false) {
+							$searchok =true;
+						}
+					}
+
+					if($searchok) {
 						$searchresults = true;
 						$stat_num = intval($k);
 						$stat_url = $v['url'];
@@ -93,13 +124,14 @@ if($plxPlugin->getParam('frmDisplay')) {
 }
 
 # affichage des résultats de la recherche
-if(isset($_POST['searchfield'])) {
-	if(empty($_POST['searchfield']))
+if(isset($_POST['searchfield']) OR isset($_POST['searchcheckboxes'])) {
+	if(empty($_POST['searchfield']) AND !isset($_POST['searchcheckboxes']))
 		echo '<p>'.$plxPlugin->getLang('L_FORM_NO_SEARCHWORD').'</p>';
 	elseif($searchresults) {
-		echo '<p>'.$plxPlugin->getLang('L_FORM_RESULTS').' : <strong>'.$word.'</strong></p>';
+		echo '<p>'.$plxPlugin->getLang('L_FORM_RESULTS').' : </p>';
 		echo '<ol class="search_results">'.$content.'</ol>';
 	} else
-		echo '<p>'.$plxPlugin->getLang('L_FORM_NO_RESULT').' : <strong>'.$word.'</strong></p>';
+		echo '<p>'.$plxPlugin->getLang('L_FORM_NO_RESULT').'</p>';
 }
+
 ?>

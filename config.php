@@ -11,7 +11,6 @@ if(defined('PLX_MYMULTILINGUE')) {
 	$aLangs = array($plxPlugin->default_lang);
 }
 
-
 if(!empty($_POST)) {
 	$plxPlugin->setParam('frmDisplay', $_POST['frmDisplay'], 'numeric');
 	$plxPlugin->setParam('mnuDisplay', $_POST['mnuDisplay'], 'numeric');
@@ -26,6 +25,7 @@ if(!empty($_POST)) {
 	foreach($aLangs as $lang) {
 		$plxPlugin->setParam('mnuName_'.$lang, $_POST['mnuName_'.$lang], 'string');
 		$plxPlugin->setParam('frmLibButton_'.$lang, $_POST['frmLibButton_'.$lang], 'string');
+		$plxPlugin->setParam('checkboxes_'.$lang, $_POST['checkboxes_'.$lang], 'string');
 	}
 	$plxPlugin->saveParams();
 	header('Location: parametres_plugin.php?p=plxMySearch');
@@ -40,6 +40,7 @@ foreach($aLangs as $lang) {
 	$langs[$lang] = $plxPlugin->loadLang(PLX_PLUGINS.'plxMySearch/lang/'.$lang.'.php');
 	$var[$lang]['mnuName'] =  $plxPlugin->getParam('mnuName_'.$lang)=='' ? $plxPlugin->getLang('L_DEFAULT_MENU_NAME') : $plxPlugin->getParam('mnuName_'.$lang);
 	$var[$lang]['frmLibButton'] =  $plxPlugin->getParam('frmLibButton_'.$lang)=='' ? $plxPlugin->getLang('L_FORM_BUTTON') : $plxPlugin->getParam('frmLibButton_'.$lang);
+	$var[$lang]['checkboxes'] = $plxPlugin->getParam('checkboxes_'.$lang)=='' ? '' : $plxPlugin->getParam('checkboxes_'.$lang);
 }
 # initialisation des variables communes à chaque langue
 $var['frmDisplay'] =  $plxPlugin->getParam('frmDisplay')=='' ? 1 : $plxPlugin->getParam('frmDisplay');
@@ -108,6 +109,8 @@ if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
 				<?php plxUtils::printInput('mnuName_'.$lang,$var[$lang]['mnuName'],'text','20-20') ?>
 				<p class="field"><label for="id_frmLibButton_<?php echo $lang ?>"><?php $plxPlugin->lang('L_MENU_LIB_BUTTON') ?>&nbsp;:</label></p>
 				<?php plxUtils::printInput('frmLibButton_'.$lang,$var[$lang]['frmLibButton'],'text','20-20') ?>
+				<p class="field"><label for="id_checkboxes_<?php echo $lang ?>"><?php $plxPlugin->lang('L_CHECKBOXES') ?>&nbsp;:</label></p>
+				<?php plxUtils::printInput('checkboxes_'.$lang,$var[$lang]['checkboxes'],'text','80-500') ?>
 			</fieldset>
 		</div>
 		<?php endforeach; ?>

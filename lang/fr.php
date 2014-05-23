@@ -26,12 +26,14 @@ $LANG = array(
 'L_SEARCH_CHAPO'			=> 'Rechercher dans les chapos des articles',
 'L_SEARCH_CONTENT'			=> 'Rechercher dans les contenus des articles',
 'L_SEARCH_TAGS'				=> 'Rechercher dans les tags des articles',
+'L_CHECKBOXES'				=> 'Liste des critères sous forme de case à cocher<br />séparés par des points-virgule',
 
 # form.search.php
 'L_FORM_SEARCHFIELD'		=> 'Entrez la valeur à rechercher',
+'L_FORM_SEARCHFIELD_2'		=> 'Sélectionnez vos critères ou la valeur à rechercher',
 'L_FORM_BUTTON'				=> 'Ok',
-'L_FORM_RESULTS'			=> 'Résultats de la recherche pour',
-'L_FORM_NO_RESULT'			=> 'Aucun résultat pour',
+'L_FORM_RESULTS'			=> 'Résultats de la recherche',
+'L_FORM_NO_RESULT'			=> 'Aucun résultat',
 'L_FORM_NO_SEARCHWORD'		=> 'Aucune valeur saisie',
 
 );
