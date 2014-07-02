@@ -146,6 +146,9 @@ class plxMySearch extends plxPlugin {
 		if(!empty($_POST['searchfield'])) {
 			$searchword = plxUtils::strCheck(plxUtils::unSlash($_POST['searchfield']));
 		}
+		if($plxPlugin->getParam('placeholder_'.$plxPlugin->default_lang)!='') {
+			$placeholder=' placeholder="'.$plxPlugin->getParam('placeholder_'.$plxPlugin->default_lang).'"';
+		}
 	?>
 
 <div class="searchform">
@@ -181,8 +184,8 @@ class plxMySearch extends plxPlugin {
 				}
 			}
 			?>
-			<input type="text" class="searchfield" name="searchfield" value="<?php echo $searchword ?>" />
-			<input type="submit" class="searchbutton" name="searchbutton" value="<?php echo $plxPlugin->getParam('frmLibButton') ?>" />
+			<input type="text"<?php echo $placeholder ?> class="searchfield" name="searchfield" value="<?php echo $searchword ?>" />
+			<input type="submit" class="searchbutton" name="searchbutton" value="<?php echo $plxPlugin->getParam('frmLibButton_'.$plxPlugin->default_lang) ?>" />
 		</div>
 	</form>
 </div>

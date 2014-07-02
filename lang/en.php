@@ -27,6 +27,7 @@ $LANG = array(
 'L_SEARCH_CONTENT'			=> 'Search into article content',
 'L_SEARCH_TAGS'				=> 'Search into article tags',
 'L_CHECKBOXES'				=> 'List of criteria as checkboxes<br />separated by semicolons',
+'L_PLACEHOLDER'				=> 'Text displayed in input search field (placeholder)',
 
 # form.search.php
 'L_FORM_SEARCHFIELD'		=> 'Enter the value to search',

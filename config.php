@@ -24,6 +24,7 @@ if(!empty($_POST)) {
 	$plxPlugin->setParam('savesearch', $_POST['savesearch'], 'numeric');
 	foreach($aLangs as $lang) {
 		$plxPlugin->setParam('mnuName_'.$lang, $_POST['mnuName_'.$lang], 'string');
+		$plxPlugin->setParam('placeholder_'.$lang, $_POST['placeholder_'.$lang], 'string');
 		$plxPlugin->setParam('frmLibButton_'.$lang, $_POST['frmLibButton_'.$lang], 'string');
 		$plxPlugin->setParam('checkboxes_'.$lang, $_POST['checkboxes_'.$lang], 'string');
 	}
@@ -39,6 +40,7 @@ foreach($aLangs as $lang) {
 	# chargement de chaque fichier de langue
 	$langs[$lang] = $plxPlugin->loadLang(PLX_PLUGINS.'plxMySearch/lang/'.$lang.'.php');
 	$var[$lang]['mnuName'] =  $plxPlugin->getParam('mnuName_'.$lang)=='' ? $plxPlugin->getLang('L_DEFAULT_MENU_NAME') : $plxPlugin->getParam('mnuName_'.$lang);
+	$var[$lang]['placeholder'] = $plxPlugin->getParam('placeholder_'.$lang)=='' ? '' : $plxPlugin->getParam('placeholder_'.$lang);
 	$var[$lang]['frmLibButton'] =  $plxPlugin->getParam('frmLibButton_'.$lang)=='' ? $plxPlugin->getLang('L_FORM_BUTTON') : $plxPlugin->getParam('frmLibButton_'.$lang);
 	$var[$lang]['checkboxes'] = $plxPlugin->getParam('checkboxes_'.$lang)=='' ? '' : $plxPlugin->getParam('checkboxes_'.$lang);
 }
@@ -107,6 +109,8 @@ if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
 			<fieldset>
 				<p class="field"><label for="id_mnuName_<?php echo $lang ?>"><?php $plxPlugin->lang('L_MENU_TITLE') ?>&nbsp;:</label></p>
 				<?php plxUtils::printInput('mnuName_'.$lang,$var[$lang]['mnuName'],'text','20-20') ?>
+				<p class="field"><label for="id_placeholder_<?php echo $lang ?>"><?php $plxPlugin->lang('L_PLACEHOLDER') ?>&nbsp;:</label></p>
+				<?php plxUtils::printInput('placeholder_'.$lang,$var[$lang]['placeholder'],'text','20-20') ?>
 				<p class="field"><label for="id_frmLibButton_<?php echo $lang ?>"><?php $plxPlugin->lang('L_MENU_LIB_BUTTON') ?>&nbsp;:</label></p>
 				<?php plxUtils::printInput('frmLibButton_'.$lang,$var[$lang]['frmLibButton'],'text','20-20') ?>
 				<p class="field"><label for="id_checkboxes_<?php echo $lang ?>"><?php $plxPlugin->lang('L_CHECKBOXES') ?>&nbsp;:</label></p>

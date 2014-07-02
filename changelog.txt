@@ -1,4 +1,8 @@
-﻿## Version 1.5.1 (23/05/2014) ##
+﻿## Version 1.5.2 (02/07/2014) ##
+[+] Nouveau paramètre pour pré-renseigné avec un texte le contenu du champ de recherche (placeholder)
+BUG Affichage du libellé du bouton
+
+## Version 1.5.1 (23/05/2014) ##
 [+] Ajout d'une liste de critères de recherche pré-renseignés sur forme de case à cocher
 
 ## Version 1.5 (27/02/2014) ##
