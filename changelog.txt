@@ -1,6 +1,7 @@
 ﻿## Version 1.5.2 (13/05/2015) ##
 [+] Compatibilité PluXml 5.4
-BUG Warning sur des variables non initialisées
+BUG fix #3: Invalid argument supplied for foreach()
+BUG fix #2: Undefined variable: placeholder
 
 ## Version 1.5.2 (02/07/2014) ##
 [+] Nouveau paramètre pour pré-renseigné avec un texte le contenu du champ de recherche (placeholder)
