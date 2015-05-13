@@ -18,9 +18,8 @@ if($fileexists=file_exists($filename)) {
 	$data = explode("\n", file_get_contents($filename));
 }
 ?>
-<h2><?php echo $plxPlugin->getInfo('title') ?></h2>
 <?php
-	echo '<p>'.$plxPlugin->getLang('L_DATA_LIST').':</p>';
+	echo '<p class="in-action-bar">'.$plxPlugin->getLang('L_DATA_LIST').'</p>';
 	if(sizeof($data)>0) {
 		$array = array_count_values($data);
 		arsort($array);

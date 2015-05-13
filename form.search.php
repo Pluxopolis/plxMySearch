@@ -5,7 +5,7 @@ function getParam($p) {
 	return ($p=='' OR $p=='1');
 }
 
-# récuperation d'une instance de plxMotor
+# récupération d'une instance de plxMotor
 $plxMotor = plxMotor::getInstance();
 $plxPlugin = $plxMotor->plxPlugins->getInstance('plxMySearch');
 
@@ -29,9 +29,11 @@ if(!empty($_POST['searchfield']) OR !empty($_POST['searchcheckboxes'])) {
 
 	# valeurs de recherche à partir des cases à cocher
 	$searchwords = array();
-	foreach($_POST['searchcheckboxes'] as $v) {
-		if(isset($array[$v])) {
-			$searchwords[] = strtolower($array[$v]);
+	if(isset($_POST['searchcheckboxes'])) {
+		foreach($_POST['searchcheckboxes'] as $v) {
+			if(isset($array[$v])) {
+				$searchwords[] = strtolower($array[$v]);
+			}
 		}
 	}
 
@@ -114,7 +116,7 @@ if(!empty($_POST['searchfield']) OR !empty($_POST['searchcheckboxes'])) {
 		}
 	}
 
-	# récuperation du contenu à afficher
+	# récupération du contenu à afficher
 	$content = ob_get_clean();
 }
 

@@ -1,4 +1,8 @@
-﻿## Version 1.5.2 (02/07/2014) ##
+﻿## Version 1.5.2 (13/05/2015) ##
+[+] Compatibilité PluXml 5.4
+BUG Warning sur des variables non initialisées
+
+## Version 1.5.2 (02/07/2014) ##
 [+] Nouveau paramètre pour pré-renseigné avec un texte le contenu du champ de recherche (placeholder)
 BUG Affichage du libellé du bouton
 
@@ -6,7 +10,7 @@ BUG Affichage du libellé du bouton
 [+] Ajout d'une liste de critères de recherche pré-renseignés sur forme de case à cocher
 
 ## Version 1.5 (27/02/2014) ##
-[+] Gestion du paramètrage multilingue
+[+] Gestion du paramétrage multilingue
 [+] Gestion css à partir de la configuration du plugin
 [+] Compatibilité avec le plugin plxMyMultiLingue
 
@@ -19,7 +23,7 @@ BUG Pas de recherche dans les articles classés en "Page d'accueil"
 
 ## Version 1.3 (11/04/2013) ##
 [+] Ajout du paramètre "Sauvegarder les recherches dans un fichier" (oui/non)
-[+] Enregistrement des recherches dans un fichier + écran de consultation des recherches avec nombre d'occurences (menu MySearch dans la sidebar de l'admin)
+[+] Enregistrement des recherches dans un fichier + écran de consultation des recherches avec nombre d'occurrences (menu MySearch dans la sidebar de l'admin)
 
 ## Version 1.2 (20/11/2012) ##
 [+] Prise en compte des magic_quotes pour les versions de php < 5.4.0
@@ -39,8 +43,8 @@ BUG Mauvaise classe css pour le lien actif du menu Rechercher
 Mise à jour pour PluXml 5.1.6
 
 ## Version 1.1 (01/02/2012) ##
-[+] Ne requiert plus l'utilisation de la fonction staticList pour accèder au formulaire
-[+] Paramètrage du libellé du bouton "Rechercher"
+[+] Ne requiert plus l'utilisation de la fonction staticList pour accéder au formulaire
+[+] Paramétrage du libellé du bouton "Rechercher"
 [+] Affichage de la page dans le sitemap (requiert PluXml 5.1.6 minimum)
 BUG Messages d'erreurs à cause de variables non renseignées (warnings)
 BUG Message d'erreur lors d'une recherche dans une page statique si le fichier de la page n'existe plus

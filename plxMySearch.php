@@ -139,7 +139,9 @@ class plxMySearch extends plxPlugin {
 	 **/
 	public static function form($title=false) {
 
-		# récuperation d'une instance de plxMotor
+		$placeholder = '';
+
+		# récupération d'une instance de plxMotor
 		$plxMotor = plxMotor::getInstance();
 		$plxPlugin = $plxMotor->plxPlugins->getInstance('plxMySearch');
 		$searchword = '';
@@ -186,6 +188,7 @@ class plxMySearch extends plxPlugin {
 			?>
 			<input type="text"<?php echo $placeholder ?> class="searchfield" name="searchfield" value="<?php echo $searchword ?>" />
 			<input type="submit" class="searchbutton" name="searchbutton" value="<?php echo $plxPlugin->getParam('frmLibButton_'.$plxPlugin->default_lang) ?>" />
+			</p>
 		</div>
 	</form>
 </div>

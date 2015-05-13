@@ -26,7 +26,7 @@ $LANG = array(
 'L_SEARCH_CHAPO'			=> 'Rechercher dans les chapos des articles',
 'L_SEARCH_CONTENT'			=> 'Rechercher dans les contenus des articles',
 'L_SEARCH_TAGS'				=> 'Rechercher dans les tags des articles',
-'L_CHECKBOXES'				=> 'Liste des critères sous forme de case à cocher<br />séparés par des points-virgule',
+'L_CHECKBOXES'				=> 'Liste des critères sous forme de case à cocher séparés par des points-virgule',
 'L_PLACEHOLDER'				=> 'Texte affiché dans le champ de recherche (placeholder)',
 
 # form.search.php

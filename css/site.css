@@ -4,9 +4,8 @@
 .searchtitle {
 }
 input.searchfield[type=text] {
-	margin-top:10px;
-	height:20px;
 	padding:1px;
+	width: 200px;
 }
 input.searchbutton[type=submit] {
 	padding:2px;

@@ -64,11 +64,13 @@ if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
 }
 
 ?>
-
-<h2><?php echo $plxPlugin->getInfo('title') ?></h2>
-
+<style>
+form.inline-form label {
+	width: 300px !important;
+}
+</style>
 <div id="tabContainer">
-<form id="form_plxMySearch" action="parametres_plugin.php?p=plxMySearch" method="post">
+<form class="inline-form" id="form_plxMySearch" action="parametres_plugin.php?p=plxMySearch" method="post">
 	<div class="tabs">
 		<ul>
 			<li id="tabHeader_main"><?php $plxPlugin->lang('L_MAIN') ?></li>
@@ -82,45 +84,73 @@ if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
 	<div class="tabscontent">
 		<div class="tabpage" id="tabpage_main">
 			<fieldset>
-				<p class="field"><label for="id_url"><?php $plxPlugin->lang('L_PARAM_URL') ?>&nbsp;:</label></p>
-				<?php plxUtils::printInput('url',$var['url'],'text','20-20') ?>
-				<p class="field"><label for="id_mnuDisplay"><?php echo $plxPlugin->lang('L_MENU_DISPLAY') ?>&nbsp;:</label></p>
-				<?php plxUtils::printSelect('mnuDisplay',array('1'=>L_YES,'0'=>L_NO),$var['mnuDisplay']); ?>
-				<p class="field"><label for="id_mnuPos"><?php $plxPlugin->lang('L_MENU_POS') ?>&nbsp;:</label></p>
-				<?php plxUtils::printInput('mnuPos',$var['mnuPos'],'text','2-5') ?>
-				<p class="field"><label for="id_frmDisplay"><?php echo $plxPlugin->lang('L_FORM_DISPLAY') ?>&nbsp;:</label></p>
-				<?php plxUtils::printSelect('frmDisplay',array('1'=>L_YES,'0'=>L_NO),$var['frmDisplay']); ?>
-				<p class="field"><label for="id_savesearch"><?php echo $plxPlugin->lang('L_SAVE_SEARCH') ?>&nbsp;:</label></p>
-				<?php plxUtils::printSelect('savesearch',array('1'=>L_YES,'0'=>L_NO),$var['savesearch']); ?>
-				<p class="field"><label for="id_sTitle"><?php echo $plxPlugin->lang('L_SEARCH_TITLE') ?>&nbsp;:</label></p>
-				<?php plxUtils::printSelect('sTitle',array('1'=>L_YES,'0'=>L_NO),$var['sTitle']); ?>
-				<p class="field"><label for="id_sChapo"><?php echo $plxPlugin->lang('L_SEARCH_CHAPO') ?>&nbsp;:</label></p>
-				<?php plxUtils::printSelect('sChapo',array('1'=>L_YES,'0'=>L_NO),$var['sChapo']); ?>
-				<p class="field"><label for="id_sContent"><?php echo $plxPlugin->lang('L_SEARCH_CONTENT') ?>&nbsp;:</label></p>
-				<?php plxUtils::printSelect('sContent',array('1'=>L_YES,'0'=>L_NO),$var['sContent']); ?>
-				<p class="field"><label for="id_sTags"><?php echo $plxPlugin->lang('L_SEARCH_TAGS') ?>&nbsp;:</label></p>
-				<?php plxUtils::printSelect('sTags',array('1'=>L_YES,'0'=>L_NO),$var['sTags']); ?>
-				<p class="field"><label for="id_template"><?php $plxPlugin->lang('L_TEMPLATE') ?>&nbsp;:</label></p>
-				<?php plxUtils::printSelect('template', $aTemplates, $var['template']) ?>
+				<p>
+					<label for="id_url"><?php $plxPlugin->lang('L_PARAM_URL') ?>&nbsp;:</label>
+					<?php plxUtils::printInput('url',$var['url'],'text','20-20') ?>
+				</p>
+				<p>
+					<label for="id_mnuDisplay"><?php echo $plxPlugin->lang('L_MENU_DISPLAY') ?>&nbsp;:</label>
+					<?php plxUtils::printSelect('mnuDisplay',array('1'=>L_YES,'0'=>L_NO),$var['mnuDisplay']); ?>
+				</p>
+				<p>
+					<label for="id_mnuPos"><?php $plxPlugin->lang('L_MENU_POS') ?>&nbsp;:</label>
+					<?php plxUtils::printInput('mnuPos',$var['mnuPos'],'text','2-5') ?>
+				</p>
+				<p>
+					<label for="id_frmDisplay"><?php echo $plxPlugin->lang('L_FORM_DISPLAY') ?>&nbsp;:</label>
+					<?php plxUtils::printSelect('frmDisplay',array('1'=>L_YES,'0'=>L_NO),$var['frmDisplay']); ?>
+				</p>
+				<p>
+					<label for="id_savesearch"><?php echo $plxPlugin->lang('L_SAVE_SEARCH') ?>&nbsp;:</label>
+					<?php plxUtils::printSelect('savesearch',array('1'=>L_YES,'0'=>L_NO),$var['savesearch']); ?>
+				</p>
+				<p>
+					<label for="id_sTitle"><?php echo $plxPlugin->lang('L_SEARCH_TITLE') ?>&nbsp;:</label>
+					<?php plxUtils::printSelect('sTitle',array('1'=>L_YES,'0'=>L_NO),$var['sTitle']); ?>
+				</p>
+				<p>
+					<label for="id_sChapo"><?php echo $plxPlugin->lang('L_SEARCH_CHAPO') ?>&nbsp;:</label>
+					<?php plxUtils::printSelect('sChapo',array('1'=>L_YES,'0'=>L_NO),$var['sChapo']); ?>
+				</p>
+				<p>
+					<label for="id_sContent"><?php echo $plxPlugin->lang('L_SEARCH_CONTENT') ?>&nbsp;:</label>
+					<?php plxUtils::printSelect('sContent',array('1'=>L_YES,'0'=>L_NO),$var['sContent']); ?>
+				</p>
+				<p>
+					<label for="id_sTags"><?php echo $plxPlugin->lang('L_SEARCH_TAGS') ?>&nbsp;:</label>
+					<?php plxUtils::printSelect('sTags',array('1'=>L_YES,'0'=>L_NO),$var['sTags']); ?>
+				</p>
+				<p>
+					<label for="id_template"><?php $plxPlugin->lang('L_TEMPLATE') ?>&nbsp;:</label>
+					<?php plxUtils::printSelect('template', $aTemplates, $var['template']) ?>
+				</p>
 			</fieldset>
 		</div>
 		<?php foreach($aLangs as $lang) : ?>
 		<div class="tabpage" id="tabpage_<?php echo $lang ?>">
 			<fieldset>
-				<p class="field"><label for="id_mnuName_<?php echo $lang ?>"><?php $plxPlugin->lang('L_MENU_TITLE') ?>&nbsp;:</label></p>
-				<?php plxUtils::printInput('mnuName_'.$lang,$var[$lang]['mnuName'],'text','20-20') ?>
-				<p class="field"><label for="id_placeholder_<?php echo $lang ?>"><?php $plxPlugin->lang('L_PLACEHOLDER') ?>&nbsp;:</label></p>
-				<?php plxUtils::printInput('placeholder_'.$lang,$var[$lang]['placeholder'],'text','20-20') ?>
-				<p class="field"><label for="id_frmLibButton_<?php echo $lang ?>"><?php $plxPlugin->lang('L_MENU_LIB_BUTTON') ?>&nbsp;:</label></p>
-				<?php plxUtils::printInput('frmLibButton_'.$lang,$var[$lang]['frmLibButton'],'text','20-20') ?>
-				<p class="field"><label for="id_checkboxes_<?php echo $lang ?>"><?php $plxPlugin->lang('L_CHECKBOXES') ?>&nbsp;:</label></p>
-				<?php plxUtils::printInput('checkboxes_'.$lang,$var[$lang]['checkboxes'],'text','80-500') ?>
+				<p>
+					<label for="id_mnuName_<?php echo $lang ?>"><?php $plxPlugin->lang('L_MENU_TITLE') ?>&nbsp;:</label>
+					<?php plxUtils::printInput('mnuName_'.$lang,$var[$lang]['mnuName'],'text','20-20') ?>
+				</p>
+				<p>
+					<label for="id_placeholder_<?php echo $lang ?>"><?php $plxPlugin->lang('L_PLACEHOLDER') ?>&nbsp;:</label>
+					<?php plxUtils::printInput('placeholder_'.$lang,$var[$lang]['placeholder'],'text','20-20') ?>
+				</p>
+				<p>
+					<label for="id_frmLibButton_<?php echo $lang ?>"><?php $plxPlugin->lang('L_MENU_LIB_BUTTON') ?>&nbsp;:</label>
+					<?php plxUtils::printInput('frmLibButton_'.$lang,$var[$lang]['frmLibButton'],'text','20-20') ?>
+				</p>
+				<p>
+					<label for="id_checkboxes_<?php echo $lang ?>"><?php $plxPlugin->lang('L_CHECKBOXES') ?>&nbsp;:</label>
+					<?php plxUtils::printInput('checkboxes_'.$lang,$var[$lang]['checkboxes'],'text','60-500') ?>
+				</p>
 			</fieldset>
 		</div>
 		<?php endforeach; ?>
 	</div>
 	<fieldset>
-		<p>
+		<p class="in-action-bar">
 			<?php echo plxToken::getTokenPostMethod() ?>
 			<input type="submit" name="submit" value="<?php $plxPlugin->lang('L_SAVE') ?>" />
 		</p>
