@@ -1,4 +1,4 @@
-﻿## Version 1.5.2 (13/05/2015) ##
+﻿## Version 1.5.3 (13/05/2015) ##
 [+] Compatibilité PluXml 5.4
 BUG fix #3: Invalid argument supplied for foreach()
 BUG fix #2: Undefined variable: placeholder
