@@ -1,5 +1,6 @@
 ﻿## Version 1.5.3 (13/05/2015) ##
 [+] Compatibilité PluXml 5.4
+BUG Mauvaise récupération des templates des pages statiques
 BUG fix #3: Invalid argument supplied for foreach()
 BUG fix #2: Undefined variable: placeholder
 

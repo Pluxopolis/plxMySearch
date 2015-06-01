@@ -57,12 +57,11 @@ $var['sContent'] =  $plxPlugin->getParam('sContent')=='' ? 1 : $plxPlugin->getPa
 $var['sTags'] =  $plxPlugin->getParam('sTags')=='' ? 1 : $plxPlugin->getParam('sTags');
 
 # On récupère les templates des pages statiques
-$files = plxGlob::getInstance(PLX_ROOT.'themes/'.$plxAdmin->aConf['style']);
+$files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
 if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
 	foreach($array as $k=>$v)
 		$aTemplates[$v] = $v;
 }
-
 ?>
 <style>
 form.inline-form label {
