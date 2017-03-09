@@ -5,7 +5,7 @@
 plxToken::validateFormToken($_POST);
 
 if(defined('PLX_MYMULTILINGUE')) {
-	$array =  explode(',', PLX_MYMULTILINGUE);
+	$array =  explode(',', PLX_MYMULTILINGUE['langs']);
 	$aLangs = array_intersect($array, array('fr', 'en'));
 } else {
 	$aLangs = array($plxPlugin->default_lang);
