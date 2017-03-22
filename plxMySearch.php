@@ -186,6 +186,7 @@ class plxMySearch extends plxPlugin {
 				}
 			}
 			?>
+			<p>
 			<input type="text"<?php echo $placeholder ?> class="searchfield" name="searchfield" value="<?php echo $searchword ?>" />
 			<input type="submit" class="searchbutton" name="searchbutton" value="<?php echo $plxPlugin->getParam('frmLibButton_'.$plxPlugin->default_lang) ?>" />
 			</p>
