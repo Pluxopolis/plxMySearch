@@ -55,9 +55,10 @@ if(!empty($_POST['searchfield']) OR !empty($_POST['searchcheckboxes'])) {
 		}
 	}
 
-	# démarrage de la bufférisation écran
-	ob_start();
-
+	# variable pour stocker les résultats
+	$res_arts = null;
+	$res_stats = null;
+	
 	# recherche dans les articles
 	$plxGlob_arts = clone $plxMotor->plxGlob_arts;
 	$motif = '/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$plxMotor->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
@@ -77,12 +78,11 @@ if(!empty($_POST['searchfield']) OR !empty($_POST['searchcheckboxes'])) {
 			}
 
 			if($searchok) {
-				$searchresults = true;
 				$art_num = intval($art['numero']);
 				$art_url = $art['url'];
 				$art_title = plxUtils::strCheck($art['title']);
 				$art_date = plxDate::formatDate($art['date'], $format_date);
-				echo '<li>'.$art_date.': <a href="'.$plxMotor->urlRewrite('?article'.$art_num.'/'.$art_url).'">'.$art_title.'</a></li>';
+				$res_arts[] = '<li>'.$art_date.': <a href="'.$plxMotor->urlRewrite('?article'.$art_num.'/'.$art_url).'">'.$art_title.'</a></li>';
 			}
 		}
 	}
@@ -105,19 +105,16 @@ if(!empty($_POST['searchfield']) OR !empty($_POST['searchcheckboxes'])) {
 					}
 
 					if($searchok) {
-						$searchresults = true;
 						$stat_num = intval($k);
 						$stat_url = $v['url'];
 						$stat_title = plxUtils::strCheck($v['name']);
-						echo '<li><a href="'.$plxMotor->urlRewrite('?static'.$stat_num.'/'.$stat_url).'">'.$stat_title.'</a></li>';
+						$res_stats[] = '<li><a href="'.$plxMotor->urlRewrite('?static'.$stat_num.'/'.$stat_url).'">'.$stat_title.'</a></li>';
 					}
 				}
 			}
 		}
 	}
 
-	# récupération du contenu à afficher
-	$content = ob_get_clean();
 }
 
 # affichage du formulaire de recherche
@@ -129,9 +126,16 @@ if($plxPlugin->getParam('frmDisplay')) {
 if(isset($_POST['searchfield']) OR isset($_POST['searchcheckboxes'])) {
 	if(empty($_POST['searchfield']) AND !isset($_POST['searchcheckboxes']))
 		echo '<p>'.$plxPlugin->getLang('L_FORM_NO_SEARCHWORD').'</p>';
-	elseif($searchresults) {
+	elseif($res_arts OR $res_stats) {
 		echo '<p>'.$plxPlugin->getLang('L_FORM_RESULTS').' : </p>';
-		echo '<ol class="search_results">'.$content.'</ol>';
+		if($res_arts) {
+			echo '<p>'.$plxPlugin->getLang('L_FORM_ARTICLES').' : </p>';
+			echo '<ol class="search_results">'.implode(' ', $res_arts).'</ol>';
+		}
+		if($res_stats) {
+			echo '<p>'.$plxPlugin->getLang('L_FORM_STATICS').' : </p>';
+			echo '<ol class="search_results">'.implode(' ', $res_stats).'</ol>';
+		}	
 	} else
 		echo '<p>'.$plxPlugin->getLang('L_FORM_NO_RESULT').'</p>';
 }

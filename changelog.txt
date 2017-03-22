@@ -1,5 +1,9 @@
 ﻿## Version 1.5.4 (xx/xx/2017) ##
 [+] Compatibilité PluXml 5.6
+[+] Traduction occitan (contribution Quent-in)
+[+] Affichage des résultats groupés par Articles/Pages
+[+] Ajout de l'id static-search
+[+] Nettoyage code
 
 ## Version 1.5.3 (13/05/2015) ##
 [+] Compatibilité PluXml 5.4

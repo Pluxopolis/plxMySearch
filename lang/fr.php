@@ -1,9 +1,6 @@
 <?php
-
 $LANG = array(
-
 'L_PAGE_TITLE'				=> 'Rechercher',
-
 # config.php
 'L_MAIN'					=> 'Général',
 'L_DEFAULT_MENU_NAME'		=> 'Rechercher',
@@ -22,13 +19,8 @@ $LANG = array(
 'L_TABLE_WORD'				=> 'Recherche',
 'L_TABLE_WORD_COUNT'		=> 'Nombre',
 'L_RESET_STATS'				=> 'Réinitialiser les statistiques',
-'L_SEARCH_TITLE'			=> 'Rechercher dans les titres des articles',
-'L_SEARCH_CHAPO'			=> 'Rechercher dans les chapos des articles',
-'L_SEARCH_CONTENT'			=> 'Rechercher dans les contenus des articles',
-'L_SEARCH_TAGS'				=> 'Rechercher dans les tags des articles',
 'L_CHECKBOXES'				=> 'Liste des critères sous forme de case à cocher séparés par des points-virgule',
 'L_PLACEHOLDER'				=> 'Texte affiché dans le champ de recherche (placeholder)',
-
 # form.search.php
 'L_FORM_SEARCHFIELD'		=> 'Entrez la valeur à rechercher',
 'L_FORM_SEARCHFIELD_2'		=> 'Sélectionnez vos critères ou la valeur à rechercher',
@@ -36,6 +28,7 @@ $LANG = array(
 'L_FORM_RESULTS'			=> 'Résultats de la recherche',
 'L_FORM_NO_RESULT'			=> 'Aucun résultat',
 'L_FORM_NO_SEARCHWORD'		=> 'Aucune valeur saisie',
-
+'L_FORM_ARTICLES'			=> 'Articles',
+'L_FORM_STATICS'			=> 'Pages',
 );
 ?>

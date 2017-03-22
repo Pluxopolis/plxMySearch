@@ -94,8 +94,8 @@ class plxMySearch extends plxPlugin {
 
 		# ajout du menu pour accèder à la page de recherche
 		if($this->getParam('mnuDisplay')) {
-			echo "<?php \$class = \$this->plxMotor->mode=='".$this->getParam('url')."'?'active':'noactive'; ?>";
-			echo "<?php array_splice(\$menus, ".($this->getParam('mnuPos')-1).", 0, '<li><a class=\"static '.\$class.'\" href=\"'.\$this->plxMotor->urlRewrite('?".$this->getParam('url')."').'\" title=\"".$this->getParam('mnuName_'.$this->default_lang)."\">".$this->getParam('mnuName_'.$this->default_lang)."</a></li>'); ?>";
+			echo "<?php \$status = \$this->plxMotor->mode=='".$this->getParam('url')."'?'active':'noactive'; ?>";
+			echo "<?php array_splice(\$menus, ".($this->getParam('mnuPos')-1).", 0, '<li class=\"static menu '.\$status.'\" id=\"static-search\"><a href=\"'.\$this->plxMotor->urlRewrite('?".$this->getParam('url')."').'\" title=\"".$this->getParam('mnuName_'.$this->default_lang)."\">".$this->getParam('mnuName_'.$this->default_lang)."</a></li>'); ?>";
 		}
 	}
 

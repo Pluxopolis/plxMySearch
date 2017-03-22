@@ -19,10 +19,6 @@ $LANG = array(
 'L_TABLE_WORD'				=> 'Recèrca',
 'L_TABLE_WORD_COUNT'		=> 'Nombre',
 'L_RESET_STATS'				=> 'Reïnicializar las estadisticas',
-'L_SEARCH_TITLE'			=> 'Cercar dins los títols dels articles',
-'L_SEARCH_CHAPO'			=> 'Cercar dins los chapòs dels articles',
-'L_SEARCH_CONTENT'			=> 'Cercar dins los contenguts dels articles',
-'L_SEARCH_TAGS'				=> 'Cercar dins las etiquetas dels articles',
 'L_CHECKBOXES'				=> 'Lista dels critèris jos la forma de casa a activar separadas per de punts-virgula',
 'L_PLACEHOLDER'				=> 'Tèxte afichat dins lo camp de recèrca (placeholder)',
 # form.search.php
@@ -32,5 +28,7 @@ $LANG = array(
 'L_FORM_RESULTS'			=> 'Resultats de la recèrca',
 'L_FORM_NO_RESULT'			=> 'Pas cap de resultat',
 'L_FORM_NO_SEARCHWORD'		=> 'Pas cap de valor picada',
+'L_FORM_ARTICLES'			=> 'Articles',
+'L_FORM_STATICS'			=> 'Paginas',
 );
 ?>

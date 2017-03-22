@@ -17,10 +17,6 @@ if(!empty($_POST)) {
 	$plxPlugin->setParam('mnuPos', $_POST['mnuPos'], 'numeric');
 	$plxPlugin->setParam('template', $_POST['template'], 'string');
 	$plxPlugin->setParam('url', plxUtils::title2url($_POST['url']), 'string');
-	$plxPlugin->setParam('sTitle', $_POST['sTitle'], 'numeric');
-	$plxPlugin->setParam('sChapo', $_POST['sChapo'], 'numeric');
-	$plxPlugin->setParam('sContent',$_POST['sContent'], 'numeric');
-	$plxPlugin->setParam('sTags', $_POST['sTags'], 'numeric');
 	$plxPlugin->setParam('savesearch', $_POST['savesearch'], 'numeric');
 	foreach($aLangs as $lang) {
 		$plxPlugin->setParam('mnuName_'.$lang, $_POST['mnuName_'.$lang], 'string');
@@ -51,10 +47,6 @@ $var['mnuPos'] =  $plxPlugin->getParam('mnuPos')=='' ? 2 : $plxPlugin->getParam(
 $var['template'] = $plxPlugin->getParam('template')=='' ? 'static.php' : $plxPlugin->getParam('template');
 $var['url'] = $plxPlugin->getParam('url')=='' ? 'search' : $plxPlugin->getParam('url');
 $var['savesearch'] =  $plxPlugin->getParam('savesearch')=='' ? 0 : $plxPlugin->getParam('savesearch');
-$var['sTitle'] =  $plxPlugin->getParam('sTitle')=='' ? 1 : $plxPlugin->getParam('sTitle');
-$var['sChapo'] =  $plxPlugin->getParam('sChapo')=='' ? 1 : $plxPlugin->getParam('sChapo');
-$var['sContent'] =  $plxPlugin->getParam('sContent')=='' ? 1 : $plxPlugin->getParam('sContent');
-$var['sTags'] =  $plxPlugin->getParam('sTags')=='' ? 1 : $plxPlugin->getParam('sTags');
 
 # On récupère les templates des pages statiques
 $files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
@@ -102,22 +94,6 @@ form.inline-form label {
 				<p>
 					<label for="id_savesearch"><?php echo $plxPlugin->lang('L_SAVE_SEARCH') ?>&nbsp;:</label>
 					<?php plxUtils::printSelect('savesearch',array('1'=>L_YES,'0'=>L_NO),$var['savesearch']); ?>
-				</p>
-				<p>
-					<label for="id_sTitle"><?php echo $plxPlugin->lang('L_SEARCH_TITLE') ?>&nbsp;:</label>
-					<?php plxUtils::printSelect('sTitle',array('1'=>L_YES,'0'=>L_NO),$var['sTitle']); ?>
-				</p>
-				<p>
-					<label for="id_sChapo"><?php echo $plxPlugin->lang('L_SEARCH_CHAPO') ?>&nbsp;:</label>
-					<?php plxUtils::printSelect('sChapo',array('1'=>L_YES,'0'=>L_NO),$var['sChapo']); ?>
-				</p>
-				<p>
-					<label for="id_sContent"><?php echo $plxPlugin->lang('L_SEARCH_CONTENT') ?>&nbsp;:</label>
-					<?php plxUtils::printSelect('sContent',array('1'=>L_YES,'0'=>L_NO),$var['sContent']); ?>
-				</p>
-				<p>
-					<label for="id_sTags"><?php echo $plxPlugin->lang('L_SEARCH_TAGS') ?>&nbsp;:</label>
-					<?php plxUtils::printSelect('sTags',array('1'=>L_YES,'0'=>L_NO),$var['sTags']); ?>
 				</p>
 				<p>
 					<label for="id_template"><?php $plxPlugin->lang('L_TEMPLATE') ?>&nbsp;:</label>
