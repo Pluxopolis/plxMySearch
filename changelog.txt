@@ -4,6 +4,7 @@
 [+] Affichage des résultats groupés par Articles/Pages
 [+] Ajout de l'id static-search
 [+] Nettoyage code
+BUG Surbrillance du menu de la page statique
 
 ## Version 1.5.3 (13/05/2015) ##
 [+] Compatibilité PluXml 5.4
