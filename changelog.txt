@@ -1,5 +1,6 @@
-﻿## Version 1.6 (23/03/2017) ##
+﻿## Version 1.6 (29/03/2017) ##
 [+] Compatibilité PluXml 5.6
+[+] Compatibilité avec le plugin plxMyMultiLingue
 [+] Traduction occitan (contribution Quent-in)
 [+] Affichage des résultats groupés par Articles/Pages
 [+] Ajout de l'id static-search

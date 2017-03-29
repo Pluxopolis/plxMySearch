@@ -2,6 +2,7 @@
 $LANG = array(
 'L_PAGE_TITLE'				=> 'Rechercher',
 # config.php
+'L_LANG_UNAVAILABLE'		=> 'Langue non disponible : %s',
 'L_MAIN'					=> 'Général',
 'L_DEFAULT_MENU_NAME'		=> 'Rechercher',
 'L_MENU_DISPLAY'			=> 'Afficher le menu de la page de recherche',

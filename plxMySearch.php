@@ -5,6 +5,9 @@
  **/
 class plxMySearch extends plxPlugin {
 
+	private $url = ''; # parametre de l'url pour accèder à la page de recherche
+	public $lang = '';
+
 	/**
 	 * Constructeur de la classe
 	 *
@@ -14,28 +17,67 @@ class plxMySearch extends plxPlugin {
 	 **/
 	public function __construct($default_lang) {
 
+		# gestion du multilingue plxMyMultiLingue
+		if(preg_match('/([a-z]{2})\/(.*)/i', plxUtils::getGets(), $capture)) {
+				$this->lang = $capture[1].'/';
+		}
+
 		# appel du constructeur de la classe plxPlugin (obligatoire)
 		parent::__construct($default_lang);
+		
+		$this->url = $this->getParam('url')=='' ? 'search' : $this->getParam('url');
 
 		# droits pour accèder à la page config.php du plugin
 		$this->setConfigProfil(PROFIL_ADMIN);
+		
+		# droites pour accèder à la page admin.php du plugin
 		if($this->getParam('savesearch'))
 			$this->setAdminProfil(PROFIL_ADMIN);
 
 		# déclaration des hooks
 		$this->addHook('AdminTopEndHead', 'AdminTopEndHead');
-		$this->addHook('plxShowConstruct', 'plxShowConstruct');
-		$this->addHook('plxMotorPreChauffageBegin', 'plxMotorPreChauffageBegin');
-		$this->addHook('plxShowStaticListEnd', 'plxShowStaticListEnd');
-		$this->addHook('plxShowPageTitle', 'plxShowPageTitle');
-		$this->addHook('SitemapStatics', 'SitemapStatics');
-		$this->addHook('MySearchForm', 'form');
+		$this->addHook('AdminTopBottom', 'AdminTopBottom');
+
+		# Si le fichier de langue existe on peut mettre en place la partie visiteur
+		if(file_exists(PLX_PLUGINS.$this->plug['name'].'/lang/'.$default_lang.'.php')) {
+			$this->addHook('plxShowConstruct', 'plxShowConstruct');
+			$this->addHook('plxMotorPreChauffageBegin', 'plxMotorPreChauffageBegin');
+			$this->addHook('plxShowStaticListEnd', 'plxShowStaticListEnd');
+			$this->addHook('plxShowPageTitle', 'plxShowPageTitle');
+			$this->addHook('SitemapStatics', 'SitemapStatics');
+			$this->addHook('MySearchForm', 'form');
+		}
+
 	}
 
+	/**
+	 * Méthode qui charge le code css nécessaire à la gestion de onglet dans l'écran de configuration du plugin
+	 *
+	 * @return	stdio
+	 * @author	Stephane F
+	 **/
 	public function AdminTopEndHead() {
 		if(basename($_SERVER['SCRIPT_NAME'])=='parametres_plugin.php') {
-			echo '<link href="'.PLX_PLUGINS.'plxMySearch/tabs/style.css" rel="stylesheet" type="text/css" />'."\n";
+			echo '<link href="'.PLX_PLUGINS.$this->plug['name'].'/tabs/style.css" rel="stylesheet" type="text/css" />'."\n";
 		}
+	}
+
+	/**
+	 * Méthode qui affiche un message si le plugin n'a pas la langue du site dans sa traduction
+	 *
+	 * @return	stdio
+	 * @author	Stephane F
+	 **/
+	public function AdminTopBottom() {
+
+		echo '<?php
+		$file = PLX_PLUGINS."'.$this->plug['name'].'/lang/".$plxAdmin->aConf["default_lang"].".php";
+		if(!file_exists($file)) {
+			echo "<p class=\"warning\">Plugin MySearch<br />".sprintf("'.$this->getLang('L_LANG_UNAVAILABLE').'", $file)."</p>";
+			plxMsg::Display();
+		}
+		?>';
+
 	}
 
 	/**
@@ -46,7 +88,7 @@ class plxMySearch extends plxPlugin {
 	 **/
 	public function plxShowConstruct() {
 		# infos sur la page statique
-		$string  = "if(\$this->plxMotor->mode=='".$this->getParam('url')."') {";
+		$string  = "if(\$this->plxMotor->mode=='".$this->url."') {";
 		$string .= "	\$array = array();";
 		$string .= "	\$array[\$this->plxMotor->cible] = array(
 			'name'		=> '".$this->getParam('mnuName_'.$this->default_lang)."',
@@ -72,8 +114,8 @@ class plxMySearch extends plxPlugin {
 		$template = $this->getParam('template')==''?'static.php':$this->getParam('template');
 
 		$string = "
-		if(\$this->get && preg_match('/^".$this->getParam('url')."\/?/',\$this->get)) {
-			\$this->mode = '".$this->getParam('url')."';
+		if(\$this->get && preg_match('/^".$this->url."\/?/',\$this->get)) {
+			\$this->mode = '".$this->url."';
 			\$prefix = str_repeat('../', substr_count(trim(PLX_ROOT.\$this->aConf['racine_statiques'], '/'), '/'));
 			\$this->cible = \$prefix.'plugins/plxMySearch/form';
 			\$this->template = '".$template."';
@@ -94,8 +136,8 @@ class plxMySearch extends plxPlugin {
 
 		# ajout du menu pour accèder à la page de recherche
 		if($this->getParam('mnuDisplay')) {
-			echo "<?php \$status = \$this->plxMotor->mode=='".$this->getParam('url')."'?'active':'noactive'; ?>";
-			echo "<?php array_splice(\$menus, ".($this->getParam('mnuPos')-1).", 0, '<li class=\"static menu '.\$status.'\" id=\"static-search\"><a href=\"'.\$this->plxMotor->urlRewrite('?".$this->getParam('url')."').'\" title=\"".$this->getParam('mnuName_'.$this->default_lang)."\">".$this->getParam('mnuName_'.$this->default_lang)."</a></li>'); ?>";
+			echo "<?php \$status = \$this->plxMotor->mode=='".$this->url."'?'active':'noactive'; ?>";
+			echo "<?php array_splice(\$menus, ".($this->getParam('mnuPos')-1).", 0, '<li class=\"static menu '.\$status.'\" id=\"static-search\"><a href=\"'.\$this->plxMotor->urlRewrite('?".$this->lang.$this->url."').'\" title=\"".$this->getParam('mnuName_'.$this->default_lang)."\">".$this->getParam('mnuName_'.$this->default_lang)."</a></li>'); ?>";
 		}
 	}
 
@@ -107,8 +149,8 @@ class plxMySearch extends plxPlugin {
 	 **/
 	public function plxShowPageTitle() {
 		echo '<?php
-			if($this->plxMotor->mode == "'.$this->getParam('url').'") {
-				echo plxUtils::strCheck($this->plxMotor->aConf["title"])." - ".plxUtils::strCheck($this->plxMotor->plxPlugins->aPlugins["plxMySearch"]->getLang("L_PAGE_TITLE"));
+			if($this->plxMotor->mode == "'.$this->url.'") {
+				$this->plxMotor->plxPlugins->aPlugins["plxMySearch"]->lang("L_PAGE_TITLE");
 				return true;
 			}
 		?>';
@@ -124,7 +166,7 @@ class plxMySearch extends plxPlugin {
 		echo '<?php
 		echo "\n";
 		echo "\t<url>\n";
-		echo "\t\t<loc>".$plxMotor->urlRewrite("?'.$this->getParam('url').'")."</loc>\n";
+		echo "\t\t<loc>".$plxMotor->urlRewrite("?'.$this->lang.$this->url.'")."</loc>\n";
 		echo "\t\t<changefreq>monthly</changefreq>\n";
 		echo "\t\t<priority>0.8</priority>\n";
 		echo "\t</url>\n";
@@ -154,7 +196,7 @@ class plxMySearch extends plxPlugin {
 	?>
 
 <div class="searchform">
-	<form action="<?php echo $plxMotor->urlRewrite('?'.$plxPlugin->getParam('url')) ?>" method="post">
+	<form action="<?php echo $plxMotor->urlRewrite('?'.$plxPlugin->lang.$plxPlugin->getParam('url')) ?>" method="post">
 		<?php if($title) : ?>
 		<p class="searchtitle">
 			<?php

@@ -2,6 +2,7 @@
 $LANG = array(
 'L_PAGE_TITLE'				=> 'Search',
 # config.php
+'L_LANG_UNAVAILABLE'		=> 'Language not available : %s',
 'L_MAIN'					=> 'Main',
 'L_DEFAULT_MENU_NAME'		=> 'Search',
 'L_MENU_DISPLAY'			=> 'Display the menu of the contact page',

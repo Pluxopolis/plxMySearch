@@ -2,6 +2,7 @@
 $LANG = array(
 'L_PAGE_TITLE'				=> 'Cercar',
 # config.php
+'L_LANG_UNAVAILABLE'		=> 'Langue non disponible : %s',
 'L_MAIN'					=> 'General',
 'L_DEFAULT_MENU_NAME'		=> 'Cercar',
 'L_MENU_DISPLAY'			=> 'Afichar lo menú de la pagina de recèrca',
