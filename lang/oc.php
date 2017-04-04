@@ -31,5 +31,6 @@ $LANG = array(
 'L_FORM_NO_SEARCHWORD'		=> 'Pas cap de valor picada',
 'L_FORM_ARTICLES'			=> 'Articles',
 'L_FORM_STATICS'			=> 'Paginas',
+'L_FORM_CATEGORY'			=> 'Categoria',
 );
 ?>

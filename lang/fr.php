@@ -31,5 +31,6 @@ $LANG = array(
 'L_FORM_NO_SEARCHWORD'		=> 'Aucune valeur saisie',
 'L_FORM_ARTICLES'			=> 'Articles',
 'L_FORM_STATICS'			=> 'Pages',
+'L_FORM_CATEGORY'			=> 'Catégorie',
 );
 ?>

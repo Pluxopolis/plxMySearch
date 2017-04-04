@@ -1,8 +1,3 @@
-.searchform {
-	margin: 10px 0 0 10px;
-}
-.searchtitle {
-}
 input.searchfield[type=text] {
 	padding:1px;
 	width: 200px;
@@ -21,3 +16,6 @@ input.searchbutton[type=submit] {
 	list-style-type: none;
 }
 
+.search_category {
+	margin-left: 20px;
+}

@@ -82,7 +82,7 @@ if(!empty($_POST['searchfield']) OR !empty($_POST['searchcheckboxes'])) {
 				$art_url = $art['url'];
 				$art_title = plxUtils::strCheck($art['title']);
 				$art_date = plxDate::formatDate($art['date'], $format_date);
-				$res_arts[] = '<li>'.$art_date.': <a href="'.$plxMotor->urlRewrite('?article'.$art_num.'/'.$art_url).'">'.$art_title.'</a></li>';
+				$res_arts[$art['categorie']][] = '<li>'.$art_date.': <a href="'.$plxMotor->urlRewrite('?article'.$art_num.'/'.$art_url).'">'.$art_title.'</a></li>';
 			}
 		}
 	}
@@ -125,19 +125,26 @@ if($plxPlugin->getParam('frmDisplay')) {
 # affichage des résultats de la recherche
 if(isset($_POST['searchfield']) OR isset($_POST['searchcheckboxes'])) {
 	if(empty($_POST['searchfield']) AND !isset($_POST['searchcheckboxes']))
-		echo '<p>'.$plxPlugin->getLang('L_FORM_NO_SEARCHWORD').'</p>';
+		echo '<div class="search_words">'.$plxPlugin->getLang('L_FORM_NO_SEARCHWORD').'</div>';
 	elseif($res_arts OR $res_stats) {
-		echo '<p>'.$plxPlugin->getLang('L_FORM_RESULTS').' : </p>';
+		echo '<div class="search_results">'.$plxPlugin->getLang('L_FORM_RESULTS').' : ';
 		if($res_arts) {
-			echo '<p>'.$plxPlugin->getLang('L_FORM_ARTICLES').' : </p>';
-			echo '<ol class="search_results">'.implode(' ', $res_arts).'</ol>';
+			echo '<p class="search_articles">'.$plxPlugin->getLang('L_FORM_ARTICLES').' :</p>';
+			foreach(array_keys($res_arts) as $idx => $cat) {
+				echo '<p class="search_category">'.$plxPlugin->getLang('L_FORM_CATEGORY').' : '.plxUtils::strCheck($plxMotor->aCats[$cat]['name']);
+				echo '<ol>'.implode(' ', $res_arts[$cat]).'</ol>';
+				echo '</p>';
+			}
 		}
 		if($res_stats) {
-			echo '<p>'.$plxPlugin->getLang('L_FORM_STATICS').' : </p>';
-			echo '<ol class="search_results">'.implode(' ', $res_stats).'</ol>';
-		}	
+			echo '<p class="search_statics">';
+			echo $plxPlugin->getLang('L_FORM_STATICS').' :';
+			echo '<ol>'.implode(' ', $res_stats).'</ol>';
+			echo '</p>';
+		}
+		echo '</div>';
 	} else
-		echo '<p>'.$plxPlugin->getLang('L_FORM_NO_RESULT').'</p>';
+		echo '<div class="searchresults">'.$plxPlugin->getLang('L_FORM_NO_RESULT').'</div>';
 }
 
 ?>
