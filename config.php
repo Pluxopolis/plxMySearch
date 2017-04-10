@@ -9,10 +9,9 @@ $aLangs = array($plxAdmin->aConf['default_lang']);
 
 # Si le plugin plxMyMultiLingue est installé on filtre sur les langues utilisées
 # On garde par défaut le fr si aucune langue sélectionnée dans plxMyMultiLingue
-if(defined('PLX_MYMULTILINGUE')) {
-	$multiLangs = empty(PLX_MYMULTILINGUE['langs']) ? array() : explode(',', PLX_MYMULTILINGUE['langs']);
-	$aLangs = $multiLangs;
-}
+$langs = plxMyMultiLingue::_Langs();
+$multiLangs = empty($langs) ? array() : explode(',', $langs);
+$aLangs = $multiLangs;
 
 if(!empty($_POST)) {
 	$plxPlugin->setParam('frmDisplay', $_POST['frmDisplay'], 'numeric');

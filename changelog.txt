@@ -1,4 +1,8 @@
-﻿## Version 1.6 (04/04/2017) ##
+﻿## Version 1.6.1 (10/04/2017) ##
+BUG tableau PLX_MYMULTILINGUE non géré avec php 5.x+
+BUG affichage des résultats pour les catégories home et non classé
+
+## Version 1.6 (04/04/2017) ##
 [+] Compatibilité PluXml 5.6
 [+] Compatibilité avec le plugin plxMyMultiLingue
 [+] Traduction occitan (contribution Quent-in)

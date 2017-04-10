@@ -131,7 +131,13 @@ if(isset($_POST['searchfield']) OR isset($_POST['searchcheckboxes'])) {
 		if($res_arts) {
 			echo '<p class="search_articles">'.$plxPlugin->getLang('L_FORM_ARTICLES').' :</p>';
 			foreach(array_keys($res_arts) as $idx => $cat) {
-				echo '<p class="search_category">'.$plxPlugin->getLang('L_FORM_CATEGORY').' : '.plxUtils::strCheck($plxMotor->aCats[$cat]['name']);
+				if(isset($plxMotor->aCats[$cat]))
+					$libcat = plxUtils::strCheck($plxMotor->aCats[$cat]['name']);
+				elseif($cat=='home')
+					$libcat = L_HOMEPAGE;
+				else
+					$libcat = L_UNCLASSIFIED;
+				echo '<p class="search_category">'.$plxPlugin->getLang('L_FORM_CATEGORY').' : '.$libcat;
 				echo '<ol>'.implode(' ', $res_arts[$cat]).'</ol>';
 				echo '</p>';
 			}
