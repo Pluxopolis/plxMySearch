@@ -1,0 +1,36 @@
+<?php
+$LANG = array(
+'L_PAGE_TITLE'				=> 'Suche',
+# config.php
+'L_LANG_UNAVAILABLE'		=> 'Sprache nicht verfügbar : %s',
+'L_MAIN'					=> 'Allgemein',
+'L_DEFAULT_MENU_NAME'		=> 'Suche',
+'L_MENU_DISPLAY'			=> 'Zeige Suchseite im Menü',
+'L_FORM_DISPLAY'			=> 'Zeige Formular auf der Suchseite',
+'L_MENU_TITLE'		    	=> 'Menütitel',
+'L_MENU_POS'		    	=> 'Menüposition',
+'L_TEMPLATE'				=> 'Vorlage',
+'L_PARAM_URL'				=> 'Url-Parameter-Name',
+'L_SAVE'					=> 'Speichern',
+'L_HELP'					=> 'Füge diesen Code deinem Theme hinzu, um das Suchformular anzuzeigen',
+'L_MENU_LIB_BUTTON'			=> 'Beschriftung der "Suchen"-Schaltfläche',
+'L_SAVE_SEARCH'				=> 'Suchstatistik in einer Datei protokollieren',
+'L_NO_DATA'					=> 'Keine Daten verfügbar.',
+'L_DATA_LIST'				=> 'Im Suchformular eingegebene Daten',
+'L_TABLE_WORD'				=> 'Suche',
+'L_TABLE_WORD_COUNT'		=> 'Anzahl',
+'L_RESET_STATS'				=> 'Statistik zurücksetzen',
+'L_CHECKBOXES'				=> 'Liste der Kriterien als Checkbox durch Semikolon getrennt',
+'L_PLACEHOLDER'				=> 'Im Eingabefeld angezeigter Text (Platzhalter)',
+# form.search.php
+'L_FORM_SEARCHFIELD'		=> 'Suchbegriff eingeben',
+'L_FORM_SEARCHFIELD_2'		=> 'Wähle ein Kriterium oder gib einen Suchbegriff ein',
+'L_FORM_BUTTON'				=> 'OK',
+'L_FORM_RESULTS'			=> 'Suchergebnisse',
+'L_FORM_NO_RESULT'			=> 'Kein Ergebnis',
+'L_FORM_NO_SEARCHWORD'		=> 'Kein Wert eingegeben',
+'L_FORM_ARTICLES'			=> 'Artikel',
+'L_FORM_STATICS'			=> 'Seiten',
+'L_FORM_CATEGORY'			=> 'Kategorie',
+);
+?>
