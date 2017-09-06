@@ -1,4 +1,7 @@
-﻿## Version 1.6.1 (10/04/2017) ##
+## Version 1.7 (xx/xx/2017) ##
+[+] Traduction allemande (contribution schulle4u)
+
+## Version 1.6.1 (10/04/2017) ##
 BUG tableau PLX_MYMULTILINGUE non géré avec php 5.x+
 BUG affichage des résultats pour les catégories home et non classé
 
