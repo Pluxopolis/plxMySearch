@@ -1,5 +1,8 @@
-## Version 1.7 (xx/xx/2017) ##
+## Version 1.7 (07/09/2017) ##
 [+] Traduction allemande (contribution schulle4u)
+[+] Multilingue: Ajout link rel alternate (contribution WorlBot)
+[+] Gestion du formulaire avec la méthode get + post
+FIX Ddossier plugin en dur (contribution WorlBot) 
 
 ## Version 1.6.1 (10/04/2017) ##
 BUG tableau PLX_MYMULTILINGUE non géré avec php 5.x+
