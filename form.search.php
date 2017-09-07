@@ -14,8 +14,10 @@ $content = '';
 $searchword = '';
 $format_date = '#num_day/#num_month/#num_year(4)';
 $searchresults=false;
+$method = $plxPlugin->getParam('method') == 'get' ? $_GET : $_POST;
 
-if(!empty($_POST['searchfield']) OR !empty($_POST['searchcheckboxes'])) {
+
+if(!empty($method['searchfield']) OR !empty($method['searchcheckboxes'])) {
 
 	# formatage des critères de recherches configurés dans l'admin du plugin
 	$array = array();
@@ -29,8 +31,8 @@ if(!empty($_POST['searchfield']) OR !empty($_POST['searchcheckboxes'])) {
 
 	# valeurs de recherche à partir des cases à cocher
 	$searchwords = array();
-	if(isset($_POST['searchcheckboxes'])) {
-		foreach($_POST['searchcheckboxes'] as $v) {
+	if(isset($method['searchcheckboxes'])) {
+		foreach($method['searchcheckboxes'] as $v) {
 			if(isset($array[$v])) {
 				$searchwords[] = strtolower($array[$v]);
 			}
@@ -38,7 +40,7 @@ if(!empty($_POST['searchfield']) OR !empty($_POST['searchcheckboxes'])) {
 	}
 
 	# valeur de recherche de la zone de saisie libre
-	$searchword = trim($_POST['searchfield']);
+	$searchword = trim($method['searchfield']);
 	if($searchword!='') {
 		$searchwords[] = plxUtils::unSlash(htmlspecialchars(strtolower($searchword)));
 	}
@@ -123,8 +125,8 @@ if($plxPlugin->getParam('frmDisplay')) {
 }
 
 # affichage des résultats de la recherche
-if(isset($_POST['searchfield']) OR isset($_POST['searchcheckboxes'])) {
-	if(empty($_POST['searchfield']) AND !isset($_POST['searchcheckboxes']))
+if(isset($method['searchfield']) OR isset($method['searchcheckboxes'])) {
+	if(empty($method['searchfield']) AND !isset($method['searchcheckboxes']))
 		echo '<div class="search_words">'.$plxPlugin->getLang('L_FORM_NO_SEARCHWORD').'</div>';
 	elseif($res_arts OR $res_stats) {
 		echo '<div class="search_results">'.$plxPlugin->getLang('L_FORM_RESULTS').' : ';

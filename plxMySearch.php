@@ -48,6 +48,7 @@ class plxMySearch extends plxPlugin {
 		# déclaration des hooks
 		$this->addHook('AdminTopEndHead', 'AdminTopEndHead');
 		$this->addHook('AdminTopBottom', 'AdminTopBottom');
+		$this->addHook('plxAdminHtaccess', 'plxAdminHtaccess');		
 
 		# Si le fichier de langue existe on peut mettre en place la partie visiteur
 		if(file_exists(PLX_PLUGINS.$this->plug['name'].'/lang/'.$default_lang.'.php')) {
@@ -63,6 +64,19 @@ class plxMySearch extends plxPlugin {
 		}
 
 	}
+	
+	/**
+	 * Méthode qui mets à jour le fichier .htaccess du site pour prendre en charge $_GET dans le traitement du formulaire
+	 *
+	 * @return	stdio
+	 * @author	Stephane F
+	 **/
+	public function plxAdminHtaccess() {
+
+		echo '<?php	$htaccess = str_replace("[L]", "[QSA,L]", $htaccess); ?>';
+
+	}
+	
 
 	/**
 	 * Méthode qui charge le code css nécessaire à la gestion de onglet dans l'écran de configuration du plugin
@@ -190,19 +204,24 @@ class plxMySearch extends plxPlugin {
 	/**
 	 * Méthode statique qui affiche le formulaire de recherche
 	 *
+	 * @parm		title		affiche le titre du formulaire si vrai
 	 * @return	stdio
 	 * @author	Stephane F
 	 **/
 	public static function form($title=false) {
 
 		$placeholder = '';
-
+		
 		# récupération d'une instance de plxMotor
 		$plxMotor = plxMotor::getInstance();
 		$plxPlugin = $plxMotor->plxPlugins->getInstance('plxMySearch');
+		
 		$searchword = '';
-		if(!empty($_POST['searchfield'])) {
-			$searchword = plxUtils::strCheck(plxUtils::unSlash($_POST['searchfield']));
+		$method = $plxPlugin->getParam('method') == 'get' ? $_GET : $_POST;
+		$frmMethod = $plxPlugin->getParam('method') == 'get' ? 'get' : 'post';
+		
+		if(!empty($method['searchfield'])) {
+			$searchword = plxUtils::strCheck(plxUtils::unSlash($method['searchfield']));
 		}
 		if($plxPlugin->getParam('placeholder_'.$plxPlugin->default_lang)!='') {
 			$placeholder=' placeholder="'.$plxPlugin->getParam('placeholder_'.$plxPlugin->default_lang).'"';
@@ -210,7 +229,7 @@ class plxMySearch extends plxPlugin {
 	?>
 
 <div class="searchform">
-	<form action="<?php echo $plxMotor->urlRewrite('?'.$plxPlugin->lang.$plxPlugin->getParam('url')) ?>" method="post">
+	<form action="<?php echo $plxMotor->urlRewrite('?'.$plxPlugin->lang.$plxPlugin->getParam('url')) ?>" method="<?php echo $frmMethod ?>">
 		<?php if($title) : ?>
 		<p class="searchtitle">
 			<?php
@@ -229,8 +248,8 @@ class plxMySearch extends plxPlugin {
 					foreach($chk as $k => $v) {
 						$c = plxUtils::title2url(trim($v));
 						$sel = "";
-						if(isset($_POST['searchcheckboxes'])) {
-							foreach($_POST['searchcheckboxes'] as $s) {
+						if(isset($method['searchcheckboxes'])) {
+							foreach($method['searchcheckboxes'] as $s) {
 								if($s==$c) {
 									$sel = ' checked="checked"';
 								}
@@ -244,7 +263,7 @@ class plxMySearch extends plxPlugin {
 			?>
 			<p>
 			<input type="text"<?php echo $placeholder ?> class="searchfield" name="searchfield" value="<?php echo $searchword ?>" />
-			<input type="submit" class="searchbutton" name="searchbutton" value="<?php echo $plxPlugin->getParam('frmLibButton_'.$plxPlugin->default_lang) ?>" />
+			<input type="submit" class="searchbutton" value="<?php echo $plxPlugin->getParam('frmLibButton_'.$plxPlugin->default_lang) ?>" />
 			</p>
 		</div>
 	</form>

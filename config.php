@@ -22,6 +22,7 @@ if(!empty($_POST)) {
 	$plxPlugin->setParam('template', $_POST['template'], 'string');
 	$plxPlugin->setParam('url', plxUtils::title2url($_POST['url']), 'string');
 	$plxPlugin->setParam('savesearch', $_POST['savesearch'], 'numeric');
+	$plxPlugin->setParam('method', $_POST['method'], 'string');	
 	foreach($aLangs as $lang) {
 		$plxPlugin->setParam('mnuName_'.$lang, $_POST['mnuName_'.$lang], 'string');
 		$plxPlugin->setParam('placeholder_'.$lang, $_POST['placeholder_'.$lang], 'string');
@@ -29,6 +30,11 @@ if(!empty($_POST)) {
 		$plxPlugin->setParam('checkboxes_'.$lang, $_POST['checkboxes_'.$lang], 'string');
 	}
 	$plxPlugin->saveParams();
+	if(is_file(PLX_ROOT.'.htaccess')) {
+		$f = file_get_contents(PLX_ROOT.'.htaccess');
+		$f = str_replace('[L]', '[QSA,L]', $f);
+		plxUtils::write($f, PLX_ROOT.'.htaccess');
+	}
 	header('Location: parametres_plugin.php?p=plxMySearch');
 	exit;
 }
@@ -51,6 +57,7 @@ $var['mnuPos'] =  $plxPlugin->getParam('mnuPos')=='' ? 2 : $plxPlugin->getParam(
 $var['template'] = $plxPlugin->getParam('template')=='' ? 'static.php' : $plxPlugin->getParam('template');
 $var['url'] = $plxPlugin->getParam('url')=='' ? 'search' : $plxPlugin->getParam('url');
 $var['savesearch'] =  $plxPlugin->getParam('savesearch')=='' ? 0 : $plxPlugin->getParam('savesearch');
+$var['method'] =  $plxPlugin->getParam('method')=='' ? 'post' : $plxPlugin->getParam('method');
 
 # On récupère les templates des pages statiques
 $files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
@@ -102,6 +109,10 @@ form.inline-form label {
 				<p>
 					<label for="id_template"><?php $plxPlugin->lang('L_TEMPLATE') ?>&nbsp;:</label>
 					<?php plxUtils::printSelect('template', $aTemplates, $var['template']) ?>
+				</p>
+				<p>
+					<label for="id_method"><?php $plxPlugin->lang('L_METHOD') ?>&nbsp;:</label>
+					<?php plxUtils::printSelect('method', array('post'=>'POST','get'=>'GET'), $var['method']) ?>
 				</p>
 			</fieldset>
 		</div>

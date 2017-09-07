@@ -22,6 +22,7 @@ $LANG = array(
 'L_RESET_STATS'				=> 'Statistik zurücksetzen',
 'L_CHECKBOXES'				=> 'Liste der Kriterien als Checkbox durch Semikolon getrennt',
 'L_PLACEHOLDER'				=> 'Im Eingabefeld angezeigter Text (Platzhalter)',
+'L_METHOD'            => 'Methode zur Bearbeitung des Suchformulars',
 # form.search.php
 'L_FORM_SEARCHFIELD'		=> 'Suchbegriff eingeben',
 'L_FORM_SEARCHFIELD_2'		=> 'Wähle ein Kriterium oder gib einen Suchbegriff ein',

@@ -22,6 +22,7 @@ $LANG = array(
 'L_RESET_STATS'				=> 'Réinitialiser les statistiques',
 'L_CHECKBOXES'				=> 'Liste des critères sous forme de case à cocher séparés par des points-virgule',
 'L_PLACEHOLDER'				=> 'Texte affiché dans le champ de recherche (placeholder)',
+'L_METHOD'            => 'Méthode de traitement du formulaire de recherche',
 # form.search.php
 'L_FORM_SEARCHFIELD'		=> 'Entrez la valeur à rechercher',
 'L_FORM_SEARCHFIELD_2'		=> 'Sélectionnez vos critères ou la valeur à rechercher',
