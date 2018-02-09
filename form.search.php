@@ -1,10 +1,6 @@
 <?php if(!defined('PLX_ROOT')) exit; ?>
 <?php
 
-function getParam($p) {
-	return ($p=='' OR $p=='1');
-}
-
 # récupération d'une instance de plxMotor
 $plxMotor = plxMotor::getInstance();
 $plxPlugin = $plxMotor->plxPlugins->getInstance('plxMySearch');
