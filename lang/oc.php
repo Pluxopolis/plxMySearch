@@ -23,6 +23,8 @@ $LANG = array(
 'L_CHECKBOXES'				=> 'Lista dels critèris jos la forma de casa a activar separadas per de punts-virgula',
 'L_PLACEHOLDER'				=> 'Tèxte afichat dins lo camp de recèrca (placeholder)',
 'L_METHOD'            		=> 'Metòde de tractament del formulari de recèrca',  
+'L_METHOD'            => 'Metòde de tractament del formulari de recèrca',  
+  
 # form.search.php
 'L_FORM_SEARCHFIELD'		=> 'Picatz la valor a cercar',
 'L_FORM_SEARCHFIELD_2'		=> 'Seleccionatz vòstres critèris o la valor a cercar',
