@@ -3,6 +3,7 @@
 [+] Multilingue: Ajout link rel alternate (contribution WorlBot)
 [+] Gestion du formulaire avec la méthode get + post
 FIX Ddossier plugin en dur (contribution WorlBot) 
+FIX HTML ol/p (12/02/2024)
 
 ## Version 1.6.1 (10/04/2017) ##
 BUG tableau PLX_MYMULTILINGUE non géré avec php 5.x+
