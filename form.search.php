@@ -139,16 +139,15 @@ if(isset($method['searchfield']) OR isset($method['searchcheckboxes'])) {
 					$libcat = L_HOMEPAGE;
 				else
 					$libcat = L_UNCLASSIFIED;
-				echo '<p class="search_category">'.$plxPlugin->getLang('L_FORM_CATEGORY').' : '.$libcat;
+				echo '<p class="search_category">'.$plxPlugin->getLang('L_FORM_CATEGORY').' : '.$libcat .'</p>';
 				echo '<ol>'.implode(' ', $res_arts[$cat]).'</ol>';
-				echo '</p>';
+
 			}
 		}
 		if($res_stats) {
 			echo '<p class="search_statics">';
-			echo $plxPlugin->getLang('L_FORM_STATICS').' :';
+			echo $plxPlugin->getLang('L_FORM_STATICS').' :</p>';
 			echo '<ol>'.implode(' ', $res_stats).'</ol>';
-			echo '</p>';
 		}
 		echo '</div>';
 	} else
