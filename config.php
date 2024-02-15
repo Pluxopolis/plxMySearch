@@ -59,12 +59,16 @@ $var['url'] = $plxPlugin->getParam('url')=='' ? 'search' : $plxPlugin->getParam(
 $var['savesearch'] =  $plxPlugin->getParam('savesearch')=='' ? 0 : $plxPlugin->getParam('savesearch');
 $var['method'] =  $plxPlugin->getParam('method')=='' ? 'post' : $plxPlugin->getParam('method');
 
-# On récupère les templates des pages statiques
-$files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
-if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
-	foreach($array as $k=>$v)
-		$aTemplates[$v] = $v;
-}
+	# On récupère les templates des pages statiques
+	$glob = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style'], false, true, '#^^static(?:-[\w-]+)?\.php$#');
+	if (!empty($glob->aFiles)) {
+		$aTemplates = array();
+		foreach($glob->aFiles as $v)
+		$aTemplates[$v] = basename($v, '.php');
+		} else {
+		$aTemplates = array('' => L_NONE1);
+	}
+	/* end template */
 ?>
 <style>
 form.inline-form label {
